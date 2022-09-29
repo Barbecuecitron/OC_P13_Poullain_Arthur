@@ -1,7 +1,8 @@
 from django.shortcuts import render
 
 
-""" Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+def index(request):
+    """Lorem ipsum dolor sit amet, consectetur adipiscing elit.
     Quisque molestie quam lobortis leo consectetur
     ullamcorper non id est.
     Praesent dictum, nulla eget feugiat sagittis, sem mi convallis eros,
@@ -10,9 +11,5 @@ from django.shortcuts import render
     Phasellus eleifend ex auctor venenatis tempus.
     Aliquam vitae erat ac orci placerat luctus.
     Nullam elementum urna nisi, pellentesque iaculis enim cursus in.
-    Praesent volutpat porttitor magna, non finibus neque cursus id.
-"""
-
-
-def index(request):
+    Praesent volutpat porttitor magna, non finibus neque cursus id. test"""
     return render(request, "index.html")
