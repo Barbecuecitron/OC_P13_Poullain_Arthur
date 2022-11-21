@@ -26,7 +26,7 @@ class LettingsTest(TestCase):
         response = self.client.get(reverse("letting", args=[1]))
         assert response.status_code == 200
         assert b"4 Rue de la Gloire" in response.content
-        assert b"<title>Test Letting FR</title>" in response.content
+        assert b"<title>Test Letting FRA</title>" in response.content
 
     def test_lettings_models_str(self):
         assert str(self.address) == f"{self.address.number} {self.address.street}"
