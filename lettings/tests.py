@@ -9,9 +9,9 @@ class LettingsTest(TestCase):
     def setUp(self):
         self.address = Address.objects.create(
             number=4,
-            street="Rue du chemin des Dames",
+            street="Rue de la Gloire",
             city="St-Martin De La Lieue",
-            state="France",
+            state="FR",
             zip_code=14100,
             country_iso_code="FRA",
         )
@@ -25,8 +25,8 @@ class LettingsTest(TestCase):
     def test_letting_caracs(self):
         response = self.client.get(reverse("letting", args=[1]))
         assert response.status_code == 200
-        assert b"4 Rue du chemin des Dames" in response.content
-        assert b"<title>Test Letting FRA</title>" in response.content
+        assert b"4 Rue de la Gloire" in response.content
+        assert b"<title>Test Letting FR</title>" in response.content
 
     def test_lettings_models_str(self):
         assert str(self.address) == f"{self.address.number} {self.address.street}"
