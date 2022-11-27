@@ -2,6 +2,8 @@ from django.test import TestCase
 from django.urls import reverse
 
 # # Create your tests here.
+
+
 class HomeIndexTest(TestCase):
     def test_index(self):
         response = self.client.get(reverse("index"))
