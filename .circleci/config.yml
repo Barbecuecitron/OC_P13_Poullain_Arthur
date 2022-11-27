@@ -11,9 +11,9 @@ jobs:
       - run:
         name: Initialize venv
         command: |
-        python -m venv venv
-        . venv/bin/activate
-        pip install -r requirements.txt
+           python -m venv venv
+          . venv/bin/activate
+          pip install -r requirements.txt
       #- run: python3 main.py
   test:
     working_directory: ~/circleci-python
