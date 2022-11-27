@@ -5,16 +5,23 @@ jobs:
     working_directory: ~/circleci-python
     docker:
       - image: "circleci/python:3.10.8"
+    resource_class: small
     steps:
       - checkout
-      - run: python3 main.py
+      - run:
+        name: Initialize venv
+        command: |
+        python -m venv venv
+        . venv/bin/activate
+        pip install -r requirements.txt
+      #- run: python3 main.py
   test:
     working_directory: ~/circleci-python
     docker:
       - image: "circleci/python:3.10.8"
     steps:
       - checkout
-      - run: python3 main-test.py
+    # - run: python3 #main-test.py
 
 workflows:
   build_and_test:
