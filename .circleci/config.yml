@@ -4,7 +4,7 @@ jobs:
   build:
     working_directory: ~/circleci-python
     docker:
-      - image: "circleci/python:3.10.8"
+      - image: "cimg/python:3.10.8"
     resource_class: small
     steps:
       - checkout
