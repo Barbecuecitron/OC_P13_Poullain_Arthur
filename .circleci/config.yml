@@ -19,11 +19,11 @@ jobs:
           command: |
             . venv/bin/activate
             flake8
-      # - run:
-      #     name: Testing
-      #     command: |
-      #       . venv/bin/activate
-      #       pytest
+      - run:
+          name: Testing
+          command: |
+            . venv/bin/activate
+            pytest
   # test:
   #   working_directory: ~/circleci-python
   #   docker:
@@ -36,6 +36,6 @@ workflows:
   main:
     jobs:
       - build
-      - test:
+      - Testing
           # requires:
             # - build
