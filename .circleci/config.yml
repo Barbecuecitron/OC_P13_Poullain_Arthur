@@ -24,7 +24,7 @@ jobs:
           command: |
             . venv/bin/activate
             pytest
-            
+
       - run:
           name: Build and Push Docker Image To Heroku
           command: |
@@ -38,4 +38,3 @@ workflows:
   main:
     jobs:
       - build
-      - deploy
