@@ -1,27 +1,32 @@
 import os
 import django_heroku
 import dj_database_url
+import environ
+from django.core.management.utils import get_random_secret_key
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+# Setup a custom env to hide critical vars
+env_vars = environ.Env()
+environ.Env.read_env(os.path.join(BASE_DIR, ".env"))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "fp$9^593hsriajg$_%=5trot9g!1qa@ew(o-1#@=&4%=hp46(s"
+SECRET_KEY = env_vars("DJANGO_SECRET_KEY", default=get_random_secret_key())
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False if os.environ.get("ENV") == "production" else True
 
-ALLOWED_HOSTS = [".heroku.com", "localhost", "127.0.0.1"]  # "localhost", "127.0.0.1", "*"]
+ALLOWED_HOSTS = [".heroku.com", "localhost", "127.0.0.1"]
 
 
 # Application definition
 
 INSTALLED_APPS = [
-    # "oc_lettings_site.apps.OCLettingsSiteConfig",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
