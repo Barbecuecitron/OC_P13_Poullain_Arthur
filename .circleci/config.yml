@@ -24,14 +24,19 @@ jobs:
           command: |
             . venv/bin/activate
             pytest
-  # test:
-  #   working_directory: ~/circleci-python
-  #   docker:
-  #     - image: "circleci/python:3.10.8"
-  #   steps:
-  #     - checkout
-    # - run: python3 #main-test.py
-
+  deploy:
+    machine: true
+      #image: ubuntu-2004:current
+    steps:
+      - checkout
+      - run:
+          name: Build and Push Docker Image To Heroku
+          command: |
+            set -x
+            sudo curl https://cli-assets.heroku.com/install.sh | sh
+            HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:login
+            HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:push -a $HEROKU_APP_NAME web
+            HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:release -a $HEROKU_APP_NAME web
 workflows:
   main:
     jobs:
