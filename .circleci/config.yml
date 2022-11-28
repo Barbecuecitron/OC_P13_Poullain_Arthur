@@ -25,7 +25,6 @@ jobs:
             . venv/bin/activate
             pytest
   deploy:
-    #machine: true
       image: ubuntu-2004:current
     steps:
       - checkout
