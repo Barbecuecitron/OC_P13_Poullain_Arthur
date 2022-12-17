@@ -9,4 +9,4 @@ class HomeIndexTest(TestCase):
         response = self.client.get(reverse("index"))
         assert response.status_code == 200
         assert b"<title>Holiday Homes</title>" in response.content
-        assert b"<h1>Welcome to Holiday Homes</h1>" in response.content
+        assert b"<h1>Welcome to Holiday Homes Beautiful man !</h1>" in response.content
