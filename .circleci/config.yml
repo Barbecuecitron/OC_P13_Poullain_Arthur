@@ -29,6 +29,22 @@ jobs:
           command: |
             . venv/bin/activate
             pytest
+
+  containerize:
+    docker:
+      - image: "cimg/python:3.10.8"
+    resource_class: medium
+    steps:
+      - checkout
+      - build_and_push_docker_image_to_docker_hub
+      - run:
+          name: Send Image to Docker Hub
+          command: |
+            echo "$DOCKERHUB_PASSWORD" | docker login --username $DOCKERHUB_LOGIN --password-stdin
+            docker build -t oc_lettings_site .
+            docker tag oc_lettings_site $DOCKERHUB_LOGIN/$DOCKER_REPOSITORY:$CIRCLE_SHA1
+            docker push $DOCKERHUB_LOGIN/$DOCKER_REPOSITORY:$CIRCLE_SHA1
+
   deploy:
     machine:
       image: ubuntu-2004:current
@@ -51,6 +67,13 @@ workflows:
   main:
     jobs:
       - build
+      - containerize:
+          requires:
+            - build
+          filters:
+            branches:
+              only:
+                - main
       - deploy:
           requires:
             - build
