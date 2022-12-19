@@ -6,7 +6,7 @@ jobs:
     docker:
       - image: "cimg/python:3.10.8"
         auth:
-          username: arthur.poullain@gmail.com
+          username: $DOCKERHUB_LOGIN
           password: $DOCKERHUB_PASSWORD
     resource_class: small
     steps:
