@@ -32,8 +32,10 @@ jobs:
 
 
   deploy:
+    steps:
+      - checkout
+      name: Build and Push Docker Image To Heroku
       - run:
-          name: Build and Push Docker Image To Heroku
           command: |
             set -x
             sudo curl https://cli-assets.heroku.com/install.sh | sh
