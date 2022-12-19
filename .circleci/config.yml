@@ -5,9 +5,6 @@ jobs:
     working_directory: ~/circleci-python
     docker:
       - image: "cimg/python:3.10.8"
-        auth:
-          username: $DOCKERHUB_LOGIN
-          password: $DOCKERHUB_PASSWORD
     resource_class: small
     steps:
       - checkout
