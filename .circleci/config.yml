@@ -40,7 +40,7 @@ jobs:
       - run:
           name: Send Image to Docker Hub
           command: |
-            echo "$DOCKERHUB_PASSWORD" | docker login --username $DOCKERHUB_LOGIN --password-stdin
+            docker login -u $DOCKERHUB_LOGIN -p $DOCKERHUB_PASSWORD
             docker build -t oc_lettings_site .
             docker tag oc_lettings_site $DOCKERHUB_LOGIN/$DOCKER_REPOSITORY:$CIRCLE_SHA1
             docker push $DOCKERHUB_LOGIN/$DOCKER_REPOSITORY:$CIRCLE_SHA1
