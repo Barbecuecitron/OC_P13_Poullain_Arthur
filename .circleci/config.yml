@@ -36,7 +36,7 @@ jobs:
     resource_class: medium
     steps:
       - checkout
-      - build_and_push_docker_image_to_docker_hub
+      - Containerize
       - run:
           name: Send Image to Docker Hub
           command: |
