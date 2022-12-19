@@ -29,9 +29,10 @@ jobs:
           command: |
             . venv/bin/activate
             pytest
-
-
   deploy:
+    machine:
+      image: ubuntu-2004:current
+    resource_class: medium
     steps:
       - checkout
       - run:
