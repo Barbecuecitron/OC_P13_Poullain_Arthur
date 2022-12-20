@@ -20,7 +20,7 @@ environ.Env.read_env(os.path.join(BASE_DIR, ".env"))
 SECRET_KEY = env_vars("DJANGO_SECRET_KEY", default=get_random_secret_key())
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False if os.environ.get("ENV") == "production" else True
+DEBUG = False if os.environ.get("ENV") == "production" else False
 
 ALLOWED_HOSTS = [".heroku.com", "localhost", "127.0.0.1"]
 
@@ -133,8 +133,10 @@ DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
-STATIC_ROOT = os.path.join(BASE_DIR, "static")
+
+ROOT = os.path.join(BASE_DIR, "static")
 STATIC_URL = "/static/"
+# STATICFILES_STORAGE = "django.contrib.staticfiles.storage.StaticFilesStorage"
 
 django_heroku.settings(locals())
 
