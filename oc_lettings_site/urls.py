@@ -4,6 +4,7 @@ from django.urls import path, include
 
 def test():
     division = 1 / 0
+    print(division)
 
 
 urlpatterns = [
