@@ -1,5 +1,5 @@
 # from django.shortcuts import render
-
+# Leave this commented
 
 # def index(request):
 #     """Lorem ipsum dolor sit amet, consectetur adipiscing elit.
