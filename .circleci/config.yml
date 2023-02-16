@@ -37,6 +37,7 @@ jobs:
       - run:
           name: Send Image to Docker Hub
           command: |
+            python -m venv venv
             . venv/bin/activate
             pip install -r requirements.txt
             echo "$DOCKERHUB_PASSWORD" | docker login --username $DOCKERHUB_LOGIN --password-stdin
