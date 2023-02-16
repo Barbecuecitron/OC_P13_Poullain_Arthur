@@ -49,8 +49,8 @@ WORKDIR /app
 COPY . .
 RUN apk update && \
     apk add --no-cache --virtual build-deps gcc python3-dev musl-dev postgresql-dev && \
-    python3 -m venv venv && \
-    . venv/bin/activate && \
+    # python3 -m venv venv && \
+    # . venv/bin/activate && \
     pip install wheel && \
     pip install -r requirements.txt && \
     apk del build-deps
