@@ -33,7 +33,6 @@ jobs:
     steps:
       - checkout
       - setup_remote_docker
-        version: 20.10.14
       - run:
           name: Create Venv & Send Image to Docker Hub
           command: |
