@@ -1,7 +1,7 @@
 FROM python:3-alpine
 ENV PORT=8000
 
-WORKDIR /app
+WORKDIR /usr/src/app
 COPY . .
 # install psycopg2 dependencies
 RUN apk update
