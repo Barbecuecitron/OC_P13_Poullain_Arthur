@@ -8,6 +8,7 @@ jobs:
     resource_class: small
     steps:
       - checkout
+      - setup_remote_docker
       - run:
           name: Initialize venv & req
           command: |
