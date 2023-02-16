@@ -6,6 +6,8 @@ COPY . .
 # install psycopg2 dependencies
 RUN apk update
 RUN apk add postgresql-dev gcc python3-dev musl-dev
+RUN python3 -m venv venv
+RUN . venv/bin/activate
 RUN pip install -r requirements.txt
 CMD python manage.py runserver 0.0.0.0:$PORT
 
