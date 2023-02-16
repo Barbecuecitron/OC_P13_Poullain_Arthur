@@ -10,7 +10,7 @@
 # RUN apk add postgresql-dev gcc python3-dev musl-dev
 # RUN pip install -r requirements.txt
 # CMD python manage.py runserver 0.0.0.0:$PORT
-FROM python:3-alpine
+FROM python:3.9-alpine
 ENV PORT=8000
 
 WORKDIR /app
