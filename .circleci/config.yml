@@ -38,7 +38,6 @@ jobs:
       - run:
           name: Send Image to Docker Hub
           command: |
-            . /~/circleci-python/venv/bin/activate
             which python
             echo "$DOCKERHUB_PASSWORD" | docker login --username $DOCKERHUB_LOGIN --password-stdin
             docker build -t oc_lettings_site .
