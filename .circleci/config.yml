@@ -3,9 +3,9 @@ version: 2.1
 jobs:
   build:
     working_directory: ~/circleci-python
-    # docker:
-      # - image: "cimg/python:3.10.8"
-    # resource_class: small
+    docker:
+      - image: "cimg/python:3.10.8"
+    resource_class: small
     steps:
       - checkout
       # - setup_remote_docker
