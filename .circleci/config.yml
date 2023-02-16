@@ -26,10 +26,6 @@ jobs:
           command: |
             . venv/bin/activate
             pytest
-      - run:
-          name: Verify virtual environment
-          command: |
-            . venv/bin/activate
             which python
 
   containerize:
