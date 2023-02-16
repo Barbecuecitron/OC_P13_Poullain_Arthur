@@ -17,4 +17,5 @@ RUN apk update && \
 RUN chown -R appuser /app
 
 USER appuser
-CMD python manage.py runserver 0.0.0.0:$PORT
+# CMD python manage.py runserver 0.0.0.0:$PORT
+CMD ["/bin/sh", "-c", ". venv/bin/activate && python manage.py runserver 0.0.0.0:$PORT"]
