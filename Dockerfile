@@ -10,19 +10,37 @@
 # RUN apk add postgresql-dev gcc python3-dev musl-dev
 # RUN pip install -r requirements.txt
 # CMD python manage.py runserver 0.0.0.0:$PORT
-FROM python:3.9-alpine
-ENV PORT=8000
+# FROM python:3.9-alpine
+# ENV PORT=8000
 
+# WORKDIR /app
+# COPY . .
+# # install system dependencies
+# RUN apk add --no-cache postgresql-libs postgresql-dev build-base
+# # create virtual environment and install dependencies
+# RUN python -m venv env
+# RUN /bin/sh -c "source env/bin/activate && pip install --no-cache-dir -r requirements.txt"
+# CMD /bin/sh -c "/app/env/bin/python manage.py runserver 0.0.0.0:$PORT"
+# Base image
+FROM python:3.9-alpine
+
+# Set working directory
 WORKDIR /app
+
+# Copy application files
 COPY . .
-# install system dependencies
-RUN apk add --no-cache postgresql-libs postgresql-dev build-base
-# create virtual environment and install dependencies
-RUN python -m venv env
-RUN /bin/sh -c "source env/bin/activate && pip install --no-cache-dir -r requirements.txt"
-# CMD /bin/sh -c "source env/bin/python manage.py runserver 0.0.0.0:$PORT" 
-CMD /bin/sh -c "/app/env/bin/python manage.py runserver 0.0.0.0:$PORT"
-#&& python manage.py runserver 0.0.0.0:$PORT"
+
+# Install dependencies
+RUN python3 -m venv venv
+RUN . venv/bin/activate && \
+    pip install --upgrade pip && \
+    pip install -r requirements.txt
+
+# Expose port
+EXPOSE 8000
+
+# Run the application
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "app:app"]
 
 # FROM python:3-alpine
 # ENV PORT=8000
