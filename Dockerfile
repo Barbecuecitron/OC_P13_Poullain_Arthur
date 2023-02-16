@@ -20,7 +20,7 @@ RUN apk add --no-cache postgresql-libs postgresql-dev build-base
 # create virtual environment and install dependencies
 RUN python -m venv env
 RUN /bin/sh -c "source env/bin/activate && pip install --no-cache-dir -r requirements.txt"
-CMD python manage.py runserver 0.0.0.0:$PORT
+CMD /bin/sh -c "source env/bin/activate && python manage.py runserver 0.0.0.0:$PORT"
 
 # FROM python:3-alpine
 # ENV PORT=8000
