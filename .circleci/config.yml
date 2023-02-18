@@ -37,6 +37,9 @@ jobs:
       - run:
           name: Create Venv & Send Image to Docker Hub
           command: |
+            python -m venv venv
+            . venv/bin/activate
+            # source /root/venv/bin/activate
             pip install wheel
             pip install -r requirements.txt
             which python
@@ -54,7 +57,6 @@ jobs:
       - run:
           name: Build and Push Docker Image To Heroku
           command: |
-            /bin/bash -c "source /venv/bin/activate"
             set -x
             sudo curl https://cli-assets.heroku.com/install.sh | sh
             HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:login
