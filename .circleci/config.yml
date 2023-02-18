@@ -60,14 +60,12 @@ jobs:
             set -x
             sudo curl https://cli-assets.heroku.com/install.sh | sh
             HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:login
+            source /app/venv/bin/activate
             HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:push -a $HEROKU_APP_NAME web
             HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:release -a $HEROKU_APP_NAME web
             HEROKU_API_KEY=${HEROKU_API_KEY} heroku config:set SENTRY_DSN=$SENTRY_DSN -a $HEROKU_APP_NAME
             HEROKU_API_KEY=${HEROKU_API_KEY} heroku run python manage.py migrate -a $HEROKU_APP_NAME
             HEROKU_API_KEY=${HEROKU_API_KEY} heroku run python manage.py loaddata data.json -a $HEROKU_APP_NAME
-
-          #  HEROKU_API_KEY=${HEROKU_API_KEY} heroku run python manage.py migrate -a $HEROKU_APP_NAME
-          #  HEROKU_API_KEY=${HEROKU_API_KEY} heroku run python manage.py loaddata data.json -a $HEROKU_APP_NAME
 
 
 workflows:
