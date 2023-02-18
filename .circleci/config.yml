@@ -57,10 +57,11 @@ jobs:
       - run:
           name: Build and Push Docker Image To Heroku
           command: |
+            /bin/bash -c "source /home/ubuntu/venv/bin/activate
             set -x
             sudo curl https://cli-assets.heroku.com/install.sh | sh
             HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:login
-            sudo /root/venv/bin/activate
+            # sudo /root/venv/bin/activate
             HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:push -a $HEROKU_APP_NAME web
             HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:release -a $HEROKU_APP_NAME web
             HEROKU_API_KEY=${HEROKU_API_KEY} heroku config:set SENTRY_DSN=$SENTRY_DSN -a $HEROKU_APP_NAME
