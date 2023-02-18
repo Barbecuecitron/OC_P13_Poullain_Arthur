@@ -56,6 +56,11 @@ jobs:
       - run:
           name: Build and Push Docker Image To Heroku
           command: |
+            python -m venv venv
+            . venv/bin/activate
+            pip install wheel
+            pip install -r requirements.txt
+            # end of rajout
             set -x
             sudo curl https://cli-assets.heroku.com/install.sh | sh
             HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:login
