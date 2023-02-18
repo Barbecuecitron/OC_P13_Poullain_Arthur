@@ -13,7 +13,7 @@ jobs:
           command: |
             python -m venv venv
             . venv/bin/activate
-            pip -- user install -r requirements.txt
+            pip install --user -r requirements.txt
       - run:
           name: Flake8 Linting
           command: |
