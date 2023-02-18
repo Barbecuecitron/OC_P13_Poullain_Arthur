@@ -54,5 +54,6 @@ RUN apk update && \
     python3 -m pip install --upgrade pip && \
     pip install wheel && \
     pip install -r requirements.txt && \
-    apk del build-deps
-CMD . venv/bin/activate && python manage.py runserver 0.0.0.0:$PORT
+    apk del build-deps && \
+    python3 manage.py runserver 0.0.0.0:$PORT
+# CMD sudo python manage.py runserver 0.0.0.0:$PORT
