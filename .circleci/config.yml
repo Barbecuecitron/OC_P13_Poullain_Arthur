@@ -39,6 +39,7 @@ jobs:
             python -m venv venv
             . venv/bin/activate
             # source /root/venv/bin/activate
+            pip install wheel
             pip install -r requirements.txt
             which python
             echo "$DOCKERHUB_PASSWORD" | docker login --username $DOCKERHUB_LOGIN --password-stdin
