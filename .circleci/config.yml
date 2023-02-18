@@ -15,10 +15,6 @@ jobs:
             . venv/bin/activate
             pip install wheel
             pip install -r requirements.txt
-      - persist_to_workspace:
-          root: ~/circleci-python
-          paths:
-            - venv
       - run:
           name: Flake8 Linting
           command: |
@@ -38,8 +34,6 @@ jobs:
     steps:
       - checkout
       - setup_remote_docker
-      - attach_workspace:
-          at: ~/circleci-python
       - run:
           name: Create Venv & Send Image to Docker Hub
           command: |
@@ -60,7 +54,7 @@ jobs:
       - run:
           name: Build and Push Docker Image To Heroku
           command: |
-            /bin/bash -c "source ~/circleci-python/venv/bin/activate"
+            /bin/bash -c "source /venv/bin/activate"
             set -x
             sudo curl https://cli-assets.heroku.com/install.sh | sh
             HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:login
