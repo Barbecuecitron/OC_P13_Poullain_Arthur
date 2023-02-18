@@ -41,12 +41,36 @@ jobs:
       - attach_workspace:
           at: ~/circleci-python
       - run:
-          name: Send Image to Docker Hub
+          name: Create Venv & Send Image to Docker Hub
           command: |
+            pip install wheel
+            pip install -r requirements.txt
+            which python
             echo "$DOCKERHUB_PASSWORD" | docker login --username $DOCKERHUB_LOGIN --password-stdin
             docker build -t oc_lettings_site .
             docker tag oc_lettings_site $DOCKERHUB_LOGIN/$DOCKER_REPOSITORY:$CIRCLE_SHA1
             docker push $DOCKERHUB_LOGIN/$DOCKER_REPOSITORY:$CIRCLE_SHA1
+
+  deploy:
+    machine:
+      image: ubuntu-2004:current
+    resource_class: medium
+    steps:
+      - checkout
+      - run:
+          name: Build and Push Docker Image To Heroku
+          command: |
+            /bin/bash -c "source ~/circleci-python/venv/bin/activate"
+            set -x
+            sudo curl https://cli-assets.heroku.com/install.sh | sh
+            HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:login
+            HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:push -a $HEROKU_APP_NAME web
+            HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:release -a $HEROKU_APP_NAME web
+            HEROKU_API_KEY=${HEROKU_API_KEY} heroku config:set SENTRY_DSN=$SENTRY_DSN -a $HEROKU_APP_NAME
+            HEROKU_API_KEY=${HEROKU_API_KEY} heroku run python manage.py migrate -a $HEROKU_APP_NAME
+            HEROKU_API_KEY=${HEROKU_API_KEY} heroku run python manage.py loaddata data.json -a $HEROKU_APP_NAME
+
+
 workflows:
   main:
     jobs:
