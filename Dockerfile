@@ -10,8 +10,8 @@ RUN python -m venv env
 RUN . env/bin/activate
 RUN pip install -r requirements.txt
 CMD python manage.py runserver 0.0.0.0:$PORT
-FROM python:3.9-alpine
-ENV PORT=8000
+# FROM python:3.9-alpine
+# ENV PORT=8000
 
 # WORKDIR /app
 # COPY . .
