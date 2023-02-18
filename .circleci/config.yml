@@ -57,7 +57,7 @@ jobs:
       - run:
           name: Build and Push Docker Image To Heroku
           command: |
-            /bin/bash -c "source /home/ubuntu/venv/bin/activate
+            /bin/bash -c "source /home/ubuntu/venv/bin/activate"
             set -x
             sudo curl https://cli-assets.heroku.com/install.sh | sh
             HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:login
