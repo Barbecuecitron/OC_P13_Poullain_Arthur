@@ -30,6 +30,9 @@ WORKDIR $HOME/app
 # change the ownership of the working directory to the non-root user
 RUN chown -R myuser:myuser $HOME/app
 
+# install apk package manager
+RUN apk add --no-cache apk-tools
+
 # add myuser to the apk group so it can run apk commands
 RUN addgroup myuser apk
 
