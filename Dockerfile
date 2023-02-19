@@ -19,7 +19,6 @@ FROM python:3-alpine
 
 # create a non-root user and switch to that user
 RUN adduser -D myuser
-USER myuser
 
 # set the environment variables
 ENV PORT=8000
@@ -30,6 +29,9 @@ WORKDIR $HOME/app
 
 # change the ownership of the working directory to the non-root user
 RUN chown -R myuser:myuser $HOME/app
+
+# switch to the non-root user
+USER myuser
 
 # copy the app files
 COPY . $HOME/app
