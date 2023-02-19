@@ -11,7 +11,7 @@ jobs:
       - run:
           name: Initialize venv & req
           command: |
-            python -m venv venv
+            python3 -m venv venv
             . venv/bin/activate
             pip install wheel
             pip install -r requirements.txt
@@ -37,9 +37,8 @@ jobs:
       - run:
           name: Create Venv & Send Image to Docker Hub
           command: |
-            python -m venv venv
+            python3 -m venv venv
             . venv/bin/activate
-            # source /root/venv/bin/activate
             pip install wheel
             pip install -r requirements.txt
             which python
@@ -63,8 +62,8 @@ jobs:
             HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:push -a $HEROKU_APP_NAME web
             HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:release -a $HEROKU_APP_NAME web
             HEROKU_API_KEY=${HEROKU_API_KEY} heroku config:set SENTRY_DSN=$SENTRY_DSN -a $HEROKU_APP_NAME
-            HEROKU_API_KEY=${HEROKU_API_KEY} heroku run python manage.py migrate -a $HEROKU_APP_NAME
-            HEROKU_API_KEY=${HEROKU_API_KEY} heroku run python manage.py loaddata data.json -a $HEROKU_APP_NAME
+            HEROKU_API_KEY=${HEROKU_API_KEY} heroku run python3 manage.py migrate -a $HEROKU_APP_NAME
+            HEROKU_API_KEY=${HEROKU_API_KEY} heroku run python3 manage.py loaddata data.json -a $HEROKU_APP_NAME
 
 
 workflows:
