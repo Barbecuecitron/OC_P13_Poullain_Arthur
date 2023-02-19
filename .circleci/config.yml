@@ -37,8 +37,8 @@ jobs:
       - run:
           name: Create Venv & Send Image to Docker Hub
           command: |
-            python3 -m venv venv
-            . venv/bin/activate
+            # python3 -m venv venv
+            # . venv/bin/activate
             pip install wheel
             pip install -r requirements.txt
             which python
