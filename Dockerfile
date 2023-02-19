@@ -37,9 +37,9 @@ RUN apk update && \
     # python3 -m venv venv && \
     # . venv/bin/activate && \
     apk add --no-cache postgresql-libs && \
-    python3 -m pip install --upgrade pip && \
-    pip install wheel && \
-    pip install -r requirements.txt && \
+    python3 -m pip install --user --upgrade pip && \
+    pip install --user wheel && \
+    pip install --user -r requirements.txt && \
     apk del build-deps
 
 # start the server
