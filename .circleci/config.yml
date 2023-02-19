@@ -1,3 +1,88 @@
+# version: 2.1
+
+# jobs:
+#   build:
+#     working_directory: ~/circleci-python
+#     docker:
+#       - image: "cimg/python:3.10.8"
+#     resource_class: small
+#     steps:
+#       - checkout
+#       - run:
+#           name: Initialize venv & req
+#           command: |
+#             python3 -m venv venv
+#             . venv/bin/activate
+#             pip install wheel
+#             pip install -r requirements.txt
+#       - run:
+#           name: Flake8 Linting
+#           command: |
+#             . venv/bin/activate
+#             flake8
+#       - run:
+#           name: Testing
+#           command: |
+#             . venv/bin/activate
+#             pytest
+#             which python
+
+#   containerize:
+#     docker:
+#       - image: "cimg/python:3.10.8"
+#     resource_class: medium
+#     steps:
+#       - checkout
+#       - setup_remote_docker
+#       - run:
+#           name: Create Venv & Send Image to Docker Hub
+#           command: |
+#             pip install wheel
+#             pip install -r requirements.txt
+#             which python
+#             echo "$DOCKERHUB_PASSWORD" | docker login --username $DOCKERHUB_LOGIN --password-stdin
+#             docker build -t oc_lettings_site .
+#             docker tag oc_lettings_site $DOCKERHUB_LOGIN/$DOCKER_REPOSITORY:$CIRCLE_SHA1
+#             docker push $DOCKERHUB_LOGIN/$DOCKER_REPOSITORY:$CIRCLE_SHA1
+
+#   deploy:
+#     machine:
+#       image: ubuntu-2004:current
+#     resource_class: medium
+#     steps:
+#       - checkout
+#       - run:
+#           name: Build and Push Docker Image To Heroku
+#           command: |
+#             set -x
+#             sudo curl https://cli-assets.heroku.com/install.sh | sh
+#             HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:login
+#             HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:push -a $HEROKU_APP_NAME web
+#             HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:release -a $HEROKU_APP_NAME web
+#             HEROKU_API_KEY=${HEROKU_API_KEY} heroku config:set SENTRY_DSN=$SENTRY_DSN -a $HEROKU_APP_NAME
+#             HEROKU_API_KEY=${HEROKU_API_KEY} heroku run python3 manage.py migrate -a $HEROKU_APP_NAME
+#             HEROKU_API_KEY=${HEROKU_API_KEY} heroku run python3 manage.py loaddata data.json -a $HEROKU_APP_NAME
+
+
+# workflows:
+#   main:
+#     jobs:
+#       - build
+#       - containerize:
+#           requires:
+#             - build
+#           # filters:
+#             # branches:
+#               # only:
+#                 # - main
+#       - deploy:
+#           requires:
+#             - build
+#             - containerize
+#           filters:
+#             branches:
+#               only:
+#                 - main
 version: 2.1
 
 jobs:
@@ -8,12 +93,13 @@ jobs:
     resource_class: small
     steps:
       - checkout
+      - setup_remote_docker:
+          version: 20.10.14
       - run:
           name: Initialize venv & req
           command: |
-            python3 -m venv venv
+            python -m venv venv
             . venv/bin/activate
-            pip install wheel
             pip install -r requirements.txt
       - run:
           name: Flake8 Linting
@@ -37,7 +123,8 @@ jobs:
       - run:
           name: Create Venv & Send Image to Docker Hub
           command: |
-            pip install wheel
+            python -m venv venv
+            . venv/bin/activate
             pip install -r requirements.txt
             which python
             echo "$DOCKERHUB_PASSWORD" | docker login --username $DOCKERHUB_LOGIN --password-stdin
@@ -60,8 +147,8 @@ jobs:
             HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:push -a $HEROKU_APP_NAME web
             HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:release -a $HEROKU_APP_NAME web
             HEROKU_API_KEY=${HEROKU_API_KEY} heroku config:set SENTRY_DSN=$SENTRY_DSN -a $HEROKU_APP_NAME
-            HEROKU_API_KEY=${HEROKU_API_KEY} heroku run python3 manage.py migrate -a $HEROKU_APP_NAME
-            HEROKU_API_KEY=${HEROKU_API_KEY} heroku run python3 manage.py loaddata data.json -a $HEROKU_APP_NAME
+            HEROKU_API_KEY=${HEROKU_API_KEY} heroku run python manage.py migrate -a $HEROKU_APP_NAME
+            HEROKU_API_KEY=${HEROKU_API_KEY} heroku run python manage.py loaddata data.json -a $HEROKU_APP_NAME
 
 
 workflows:
@@ -71,10 +158,10 @@ workflows:
       - containerize:
           requires:
             - build
-          # filters:
-            # branches:
-              # only:
-                # - main
+          filters:
+            branches:
+              only:
+                - main
       - deploy:
           requires:
             - build
@@ -83,3 +170,4 @@ workflows:
             branches:
               only:
                 - main
+

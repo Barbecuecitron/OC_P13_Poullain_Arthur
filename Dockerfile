@@ -49,11 +49,11 @@ WORKDIR /app
 COPY . .
 RUN apk update && \
     apk add --no-cache --virtual build-deps gcc python3-dev musl-dev postgresql-dev && \
+    # python3 -m venv venv && \
+    # . venv/bin/activate && \
     python3 -m pip install --upgrade pip && \
     pip install wheel && \
     pip install -r requirements.txt && \
-    python3 manage.py collectstatic --noinput --clear && \
-    python3 manage.py dumpdata -o data.json && \
     apk del build-deps
-
+    
 CMD python3 manage.py runserver 0.0.0.0:$PORT
