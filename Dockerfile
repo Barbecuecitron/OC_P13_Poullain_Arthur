@@ -29,7 +29,7 @@ ENV HOME=/home/myuser
 WORKDIR $HOME/app
 
 # change the ownership of the working directory to the non-root user
-RUN sudo chown -R myuser:myuser $HOME/app
+RUN chown -R myuser:myuser $HOME/app
 
 # copy the app files
 COPY . $HOME/app
