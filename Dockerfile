@@ -15,7 +15,7 @@
     
 # CMD python3 manage.py runserver 0.0.0.0:$PORT
 
-FROM python:3-alpine
+FROM python:3.9-alpine
 
 # create a non-root user and switch to that user
 RUN adduser -D myuser
@@ -30,14 +30,10 @@ WORKDIR $HOME/app
 # change the ownership of the working directory to the non-root user
 RUN chown -R myuser:myuser $HOME/app
 
-# install sudo and grant permission to myuser to run apk
-RUN apk add --no-cache sudo && \
-    echo "myuser ALL=(ALL) NOPASSWD: /usr/bin/apk" >> /etc/sudoers.d/myuser
+# add myuser to the apk group so it can run apk commands
+RUN addgroup myuser apk
 
 # copy the app files
-# set the user to run the CMD
-USER myuser
-
 COPY . $HOME/app
 
 # install dependencies
@@ -48,7 +44,6 @@ RUN apk update && \
     pip install --user wheel && \
     pip install --user -r requirements.txt && \
     apk del build-deps
-
 
 # start the server
 CMD python3 manage.py runserver 0.0.0.0:$PORT
