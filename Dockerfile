@@ -57,5 +57,8 @@ RUN apk update && \
     pip install -r requirements.txt && \
     apk del build-deps
     
-CMD . venv/bin/activate && python3 manage.py runserver 0.0.0.0:$PORT
+CMD /app/venv/bin/python manage.py runserver 0.0.0.0:$PORT
+# CMD /app/venv/bin/python /app/manage.py runserver 0.0.0.0:$PORT
+# CMD . venv/bin/activate && python3 manage.py runserver 0.0.0.0:$PORT
+# CMD /app/venv/bin/python manage.py runserver 0.0.0.0:$PORT
 # CMD python3 manage.py runserver 0.0.0.0:$PORT
