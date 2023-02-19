@@ -42,7 +42,7 @@
 # # Run the application
 # CMD ["gunicorn", "--bind", "0.0.0.0:8000", "app:app"]
 
-FROM python:3.9-alpine
+FROM python:3-alpine
 ENV PORT=8000
 
 WORKDIR /app
