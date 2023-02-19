@@ -55,4 +55,4 @@ RUN apk update && \
     pip install wheel && \
     pip install -r requirements.txt && \
     apk del build-deps
-CMD python manage.py runserver 0.0.0.0:$PORT
+CMD python3 manage.py runserver 0.0.0.0:$PORT
