@@ -93,8 +93,8 @@ jobs:
     resource_class: small
     steps:
       - checkout
-      - setup_remote_docker:
-          version: 20.10.14
+      # - setup_remote_docker:
+      #     version: 20.10.14
       - run:
           name: Initialize venv & req
           command: |
@@ -151,17 +151,17 @@ jobs:
 workflows:
   main:
     jobs:
-      # - build
+      - build
       - containerize:
-          # requires:
-          #   - build
+          requires:
+            - build
           filters:
             branches:
               only:
                 - main
       - deploy:
           requires:
-            # - build
+            - build
             - containerize
           filters:
             branches:
