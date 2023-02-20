@@ -23,17 +23,21 @@
 FROM cimg/python:3.10.8
 ENV PORT=8000
 
-WORKDIR /app
+# WORKDIR /app
+
 COPY . .
 
-RUN adduser --disabled-password --gecos '' myuser
+# RUN adduser --disabled-password --gecos '' myuser
 
 RUN \
+    RUN python -m venv venv && \
+    RUN . venv/bin/activate && \
     apk update && \
     apk add --no-cache --virtual build-deps gcc python3-dev musl-dev postgresql-dev && \
     apk add --no-cache postgresql-libs && \
-    su myuser -c "echo \"export PATH=\$PATH:\$HOME/.local/bin\" >> ~/.bashrc" && \
-    su myuser -c "python3 -m pip install --user --upgrade pip && python3 -m pip install wheel && python3 -m pip install -r requirements.txt" && \
+    python3 -m pip install --user --upgrade pip && \
+    python3 -m pip install wheel &&\
+    python3 -m pip install -r requirements.txt && \
     apk del build-deps
 
-CMD su myuser -c "echo \"export PATH=\$PATH:\$HOME/.local/bin\" >> ~/.bashrc && python3 manage.py runserver 0.0.0.0:$PORT"
+CMD python3 manage.py runserver 0.0.0.0:$PORT"
