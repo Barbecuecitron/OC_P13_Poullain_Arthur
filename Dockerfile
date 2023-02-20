@@ -36,6 +36,4 @@ RUN \
     su myuser -c "python3 -m pip install --user --upgrade pip && pip install wheel && pip install -r requirements.txt" && \
     apk del build-deps
 
-USER myuser
-
-CMD su myuser -c "python3 manage.py runserver 0.0.0.0:$PORT"
+CMD su myuser -c "echo \"export PATH=\$PATH:\$HOME/.local/bin\" >> ~/.bashrc && python3 manage.py runserver 0.0.0.0:$PORT"
