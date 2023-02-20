@@ -89,7 +89,7 @@ jobs:
   build:
     working_directory: ~/circleci-python
     docker:
-      - image: "cimg/python:3.10.8"
+      - image: "cimg/python:3.10.2"
     resource_class: small
     steps:
       - checkout
@@ -115,7 +115,7 @@ jobs:
 
   containerize:
     docker:
-      - image: "cimg/python:3.10.8"
+      - image: "cimg/python:3.10.2"
     resource_class: medium
     steps:
       - checkout

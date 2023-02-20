@@ -27,8 +27,6 @@ WORKDIR /usr/src/app
 
 COPY . .
 
-# RUN adduser --disabled-password --gecos '' myuser
-
 RUN \
     apk update && \
     apk add --no-cache --virtual build-deps gcc python3-dev musl-dev postgresql-dev && \
