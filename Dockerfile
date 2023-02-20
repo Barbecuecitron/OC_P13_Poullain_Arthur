@@ -5,12 +5,12 @@ WORKDIR /app
 COPY . .
 
 RUN adduser --disabled-password --gecos '' myuser
-USER myuser
 
 RUN \ 
     apk update && \
     apk add --no-cache --virtual build-deps gcc python3-dev musl-dev postgresql-dev && \
     apk add --no-cache postgresql-libs && \
+USER myuser
 
 RUN \
     python3 -m pip install --upgrade pip && \
