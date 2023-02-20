@@ -4,12 +4,15 @@ ENV PORT=8000
 WORKDIR /app
 COPY . .
 
-USER root
+RUN adduser --disabled-password --gecos '' myuser
+USER myuser
 
-RUN \
+RUN \ 
     apk update && \
     apk add --no-cache --virtual build-deps gcc python3-dev musl-dev postgresql-dev && \
     apk add --no-cache postgresql-libs && \
+
+RUN \
     python3 -m pip install --upgrade pip && \
     pip install wheel && \
     pip install -r requirements.txt && \
