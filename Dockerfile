@@ -23,7 +23,7 @@
 FROM python:3.9-alpine
 ENV PORT=8000
 
-WORKDIR /usr/src/app
+WORKDIR /app
 
 RUN python3 -m venv venv
 ENV PATH="/venv/bin:$PATH"
@@ -38,4 +38,4 @@ RUN \
     python3 -m pip install -r requirements.txt && \
     apk del build-deps
 
-CMD . venv/bin/activate && python3 manage.py runserver "0.0.0.0:$PORT"
+CMD python3 manage.py runserver "0.0.0.0:$PORT"
