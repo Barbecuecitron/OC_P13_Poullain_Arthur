@@ -23,15 +23,15 @@
 FROM cimg/python:3.10.8
 ENV PORT=8000
 
-# WORKDIR /app
+WORKDIR /app
 
 COPY . .
 
 # RUN adduser --disabled-password --gecos '' myuser
 
 RUN \
-    RUN python -m venv venv && \
-    RUN . venv/bin/activate && \
+    python -m venv venv && \
+    . venv/bin/activate && \
     apk update && \
     apk add --no-cache --virtual build-deps gcc python3-dev musl-dev postgresql-dev && \
     apk add --no-cache postgresql-libs && \
