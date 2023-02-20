@@ -33,7 +33,7 @@ RUN \
     apk add --no-cache --virtual build-deps gcc python3-dev musl-dev postgresql-dev && \
     apk add --no-cache postgresql-libs && \
     su myuser -c "echo \"export PATH=\$PATH:\$HOME/.local/bin\" >> ~/.bashrc" && \
-    su myuser -c "python3 -m pip install --user --upgrade pip && pip install wheel && pip install -r requirements.txt" && \
+    su myuser -c "python3 -m pip install --user --upgrade pip && python3 -m pip install wheel && python3 -m pip install -r requirements.txt" && \
     apk del build-deps
 
 CMD su myuser -c "echo \"export PATH=\$PATH:\$HOME/.local/bin\" >> ~/.bashrc && python3 manage.py runserver 0.0.0.0:$PORT"
