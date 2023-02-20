@@ -30,7 +30,7 @@ COPY . .
 # RUN adduser --disabled-password --gecos '' myuser
 
 RUN \
-    python -m venv venv && \
+    python3 -m venv venv && \
     . venv/bin/activate && \
     apk update && \
     apk add --no-cache --virtual build-deps gcc python3-dev musl-dev postgresql-dev && \
