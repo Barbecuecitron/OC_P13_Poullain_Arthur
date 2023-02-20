@@ -148,7 +148,7 @@ jobs:
             HEROKU_API_KEY=${HEROKU_API_KEY} heroku config:set DEBUG=0 -a $HEROKU_APP_NAME
             HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:push -a $HEROKU_APP_NAME web
             HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:release -a $HEROKU_APP_NAME web
-            HEROKU_API_KEY=${HEROKU_API_KEY} heroku run bash -a $HEROKU_APP_NAME ". venv/bin/activate && python manage.py migrate && python manage.py loaddata data.json"
+            HEROKU_API_KEY=${HEROKU_API_KEY} heroku run sh -a $HEROKU_APP_NAME ". venv/bin/activate && python manage.py migrate && python manage.py loaddata data.json"
 #            HEROKU_API_KEY=${HEROKU_API_KEY} heroku run python manage.py migrate -a $HEROKU_APP_NAME
 #            HEROKU_API_KEY=${HEROKU_API_KEY} heroku run python manage.py loaddata data.json -a $HEROKU_APP_NAME
 
@@ -156,17 +156,17 @@ jobs:
 workflows:
   main:
     jobs:
-      - build
+      # - build
       - containerize:
-          requires:
-            - build
+          # requires:
+            # - build
           filters:
             branches:
               only:
                 - main
       - deploy:
           requires:
-            - build
+            # - build
             - containerize
           filters:
             branches:
