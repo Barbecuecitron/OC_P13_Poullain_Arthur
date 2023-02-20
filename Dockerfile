@@ -46,10 +46,12 @@ RUN pip install --upgrade pip
 
 RUN adduser -D myuser
 WORKDIR /home/myuser
+
 RUN \
     apk update && \
     apk add --no-cache --virtual build-deps gcc python3-dev musl-dev postgresql-dev && \
-    apk add --no-cache postgresql-libs && \
+    apk add --no-cache postgresql-libs
+
 USER myuser
 
 
