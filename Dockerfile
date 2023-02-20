@@ -48,7 +48,13 @@ RUN adduser -D myuser
 USER myuser
 WORKDIR /home/myuser
 
+RUN \
+    apk update && \
+    apk add --no-cache --virtual build-deps gcc python3-dev musl-dev postgresql-dev && \
+    apk add --no-cache postgresql-libs && \
+
 COPY --chown=myuser:myuser requirements.txt requirements.txt
+
 RUN pip install --user -r requirements.txt
 
 ENV PATH="/home/myuser/.local/bin:${PATH}"
