@@ -37,4 +37,4 @@ RUN \
 
 USER myuser
 
-CMD python3 manage.py runserver 0.0.0.0:$PORT
+CMD su myuser -c "python3 manage.py runserver 0.0.0.0:$PORT"
