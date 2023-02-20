@@ -20,7 +20,7 @@
     
 # CMD python3 manage.py runserver 0.0.0.0:$PORT
 
-FROM python:3.9-alpine
+FROM cimg/python:3.10.8
 ENV PORT=8000
 
 WORKDIR /app

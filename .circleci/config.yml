@@ -152,17 +152,17 @@ jobs:
 workflows:
   main:
     jobs:
-      - build
+      # - build
       - containerize:
-          requires:
-            - build
+          # requires:
+          #   - build
           filters:
             branches:
               only:
                 - main
       - deploy:
           requires:
-            - build
+            # - build
             - containerize
           filters:
             branches:
