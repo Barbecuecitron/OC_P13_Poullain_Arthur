@@ -23,7 +23,7 @@
 FROM python:3.9-alpine
 ENV PORT=8000
 
-WORKDIR /app
+WORKDIR /usr/src/app
 
 COPY . .
 
