@@ -21,12 +21,13 @@
 # CMD python3 manage.py runserver 0.0.0.0:$PORT
 
 FROM python:3.9-alpine
-ENV PORT=8000
+
+ENV PORT=8000 \
+    PIP_ROOT_USER_ACTION=ignore
 
 WORKDIR /app
 
 RUN python3 -m venv venv
-ENV PATH="/venv/bin:$PATH"
 
 COPY . /app
 
