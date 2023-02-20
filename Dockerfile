@@ -3,8 +3,7 @@ ENV PORT=8000
 
 WORKDIR /app
 COPY . .
-RUN python3 -m venv venv && \
-    . venv/bin/activate && \
+RUN \
     apk update && \
     apk add --no-cache --virtual build-deps gcc python3-dev musl-dev postgresql-dev && \
     apk add --no-cache postgresql-libs && \
