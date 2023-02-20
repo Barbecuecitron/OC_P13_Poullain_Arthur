@@ -28,7 +28,7 @@ WORKDIR /app
 RUN python3 -m venv venv
 ENV PATH="/venv/bin:$PATH"
 
-COPY . .
+COPY . /app
 
 RUN \
     apk update && \
