@@ -25,8 +25,8 @@ ENV PORT=8000
 
 WORKDIR /usr/src/app
 
-ENV PYTHONDONTWRITEBYTECODE 1
-ENV PYTHONUNBUFFERED 1
+RUN python3 -m venv venv
+ENV PATH="/venv/bin:$PATH"
 
 COPY . .
 
