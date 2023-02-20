@@ -3,6 +3,9 @@ ENV PORT=8000
 
 WORKDIR /app
 COPY . .
+
+USER root
+
 RUN \
     apk update && \
     apk add --no-cache --virtual build-deps gcc python3-dev musl-dev postgresql-dev && \
