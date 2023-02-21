@@ -157,7 +157,7 @@ jobs:
       - run:
           name: Try to activate venv
           command: |
-            HEROKU_API_KEY=${HEROKU_API_KEY} heroku run bash -a $HEROKU_APP_NAME -c 'source venv/bin/activate && which python'
+            HEROKU_API_KEY=${HEROKU_API_KEY} heroku run source venv/bin/activate ';' which python -a $HEROKU_APP_NAME
       - run:
           name: Run Migrations on Heroku
           command: |
