@@ -34,7 +34,7 @@ RUN \
     apk add --no-cache postgresql-libs && \
     python3 -m pip install --upgrade pip && \
     python3 -m pip install -r requirements.txt && \
-    apk del build-deps && \
+    apk del build-deps
     
 CMD python manage.py runserver "0.0.0.0:$PORT"
 # FROM python:3.8.3-alpine
