@@ -148,8 +148,20 @@ jobs:
             HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:push -a $HEROKU_APP_NAME web
             HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:release -a $HEROKU_APP_NAME web
             HEROKU_API_KEY=${HEROKU_API_KEY} heroku run which python -a $HEROKU_APP_NAME web
-            HEROKU_API_KEY=${HEROKU_API_KEY} heroku run python manage.py migrate -a $HEROKU_APP_NAME
-            HEROKU_API_KEY=${HEROKU_API_KEY} heroku run python manage.py loaddata data.json -a $HEROKU_APP_NAME
+        - run:
+            name: Run Migrations on Heroku
+            command: |
+              HEROKU_API_KEY=${HEROKU_API_KEY} heroku run bash -a $HEROKU_APP_NAME
+              source venv/bin/activate && python manage.py migrate
+        - run:
+            name: Load Data on Heroku
+            command: |
+              HEROKU_API_KEY=${HEROKU_API_KEY} heroku run bash -a $HEROKU_APP_NAME
+              source venv/bin/activate && python manage.py loaddata data.json
+
+            
+          # HEROKU_API_KEY=${HEROKU_API_KEY} heroku run python manage.py migrate -a $HEROKU_APP_NAME
+          # HEROKU_API_KEY=${HEROKU_API_KEY} heroku run python manage.py loaddata data.json -a $HEROKU_APP_NAME
 
 
 workflows:
