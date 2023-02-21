@@ -161,7 +161,7 @@ jobs:
       - run:
           name: Run Migrations on Heroku
           command: |
-            HEROKU_API_KEY=${HEROKU_API_KEY} heroku run venv/ -a $HEROKU_APP_NAME
+            HEROKU_API_KEY=${HEROKU_API_KEY} heroku run source venv/bin/activate ';' python manage.py migrate -a $HEROKU_APP_NAME
       - run:
           name: Load Data on Heroku
           command: |
