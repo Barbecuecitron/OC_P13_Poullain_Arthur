@@ -151,12 +151,11 @@ jobs:
       - run:
           name: Verify arborescence integrity
           command: |
-            HEROKU_API_KEY=${HEROKU_API_KEY} heroku run bash -a $HEROKU_APP_NAME
-            pwd
-            ls -l
-            cd ..
-            pwd
-            ls -l
+            HEROKU_API_KEY=${HEROKU_API_KEY} heroku run pwd -a $HEROKU_APP_NAME
+            HEROKU_API_KEY=${HEROKU_API_KEY} heroku run ls -l -a $HEROKU_APP_NAME
+            HEROKU_API_KEY=${HEROKU_API_KEY} heroku run cd -a $HEROKU_APP_NAME
+            HEROKU_API_KEY=${HEROKU_API_KEY} heroku run pwd -a $HEROKU_APP_NAME
+            HEROKU_API_KEY=${HEROKU_API_KEY} heroku run ls -l -a $HEROKU_APP_NAME
       - run:
           name: Run Migrations on Heroku
           command: |
