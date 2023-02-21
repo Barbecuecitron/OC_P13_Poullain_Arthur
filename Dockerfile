@@ -38,6 +38,7 @@
     
 # CMD python manage.py runserver "0.0.0.0:$PORT"
 FROM python:3.8.3-alpine
+ENV PORT=8080
 
 RUN pip install --upgrade pip
 
