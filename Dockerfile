@@ -41,24 +41,25 @@ FROM python:3.8.3-alpine
 
 RUN pip install --upgrade pip
 
-# RUN adduser -D myuser
-# WORKDIR /home/myuser
-# ENV PATH="/home/myuser/.local/bin:${PATH}"
+RUN adduser -D myuser
+WORKDIR /home/myuser
+ENV PATH="/home/myuser/.local/bin:${PATH}"
 
 RUN \
     apk update && \
     apk add --no-cache --virtual build-deps gcc python3-dev musl-dev postgresql-dev && \
     apk add --no-cache postgresql-libs
 
-# USER myuser
+USER myuser
 
 
-# COPY --chown=myuser:myuser requirements.txt requirements.txt
+COPY --chown=myuser:myuser requirements.txt requirements.txt
+COPY --chown=user:myuser data.json data.json
 
 RUN pip install --user -r requirements.txt
 
 
-# COPY --chown=myuser:myuser . .
+COPY --chown=myuser:myuser . .
 # USER root
 
 CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
