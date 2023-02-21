@@ -32,7 +32,7 @@ RUN \
     apk update && \
     apk add --no-cache --virtual build-deps gcc python3-dev musl-dev postgresql-dev && \
     apk add --no-cache postgresql-libs && \
-    python3 -m pip install --user--upgrade pip && \
+    python3 -m pip install --upgrade pip && \
     python3 -m pip install -r requirements.txt && \
     apk del build-deps
     
