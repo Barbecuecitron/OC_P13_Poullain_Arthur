@@ -26,6 +26,7 @@ ENV PORT=8000
 
 WORKDIR /app
 
+COPY . /app
 
 RUN \
     apk update && \
@@ -33,10 +34,9 @@ RUN \
     apk add --no-cache postgresql-libs && \
     python3 -m pip install --upgrade pip && \
     python3 -m pip install -r requirements.txt && \
-    apk del build-deps
+    apk del build-deps && \
+    python3 manage.py collectstatic --noinput --clear
     
-COPY . /app
-
 CMD python manage.py runserver "0.0.0.0:$PORT"
 # FROM python:3.8.3-alpine
 # ENV PORT=8080
