@@ -43,6 +43,7 @@ RUN pip install --upgrade pip
 
 RUN adduser -D myuser
 WORKDIR /home/myuser
+ENV PATH="/home/myuser/.local/bin:${PATH}"
 
 RUN \
     apk update && \
@@ -56,7 +57,6 @@ COPY --chown=myuser:myuser requirements.txt requirements.txt
 
 RUN pip install --user -r requirements.txt
 
-ENV PATH="/home/myuser/.local/bin:${PATH}"
 
 COPY --chown=myuser:myuser . .
 USER root
