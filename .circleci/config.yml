@@ -153,14 +153,15 @@ jobs:
           command: |
             HEROKU_API_KEY=${HEROKU_API_KEY} heroku run pwd -a $HEROKU_APP_NAME
             HEROKU_API_KEY=${HEROKU_API_KEY} heroku run ls -l -a $HEROKU_APP_NAME
-            HEROKU_API_KEY=${HEROKU_API_KEY} heroku run cd -a $HEROKU_APP_NAME
-            HEROKU_API_KEY=${HEROKU_API_KEY} heroku run pwd -a $HEROKU_APP_NAME
-            HEROKU_API_KEY=${HEROKU_API_KEY} heroku run ls -l -a $HEROKU_APP_NAME
+            HEROKU_API_KEY=${HEROKU_API_KEY} heroku run which python -a $HEROKU_APP_NAME
+      - run:
+          name: Try to activate venv
+          command: |
+            HEROKU_API_KEY=${HEROKU_API_KEY} heroku run source venv/scripts/bin/activate && which python -a $HEROKU_APP_NAME
       - run:
           name: Run Migrations on Heroku
           command: |
-            HEROKU_API_KEY=${HEROKU_API_KEY} heroku run bash -a $HEROKU_APP_NAME
-            manage.py migrate
+            HEROKU_API_KEY=${HEROKU_API_KEY} heroku run venv/ -a $HEROKU_APP_NAME
       - run:
           name: Load Data on Heroku
           command: |
