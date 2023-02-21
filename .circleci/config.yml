@@ -149,11 +149,14 @@ jobs:
             HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:release -a $HEROKU_APP_NAME web
             HEROKU_API_KEY=${HEROKU_API_KEY} heroku run which python -a $HEROKU_APP_NAME web
       - run:
-          name: Check that venv directory exists
+          name: Verify arborescence integrity
           command: |
+            HEROKU_API_KEY=${HEROKU_API_KEY} heroku run bash -a $HEROKU_APP_NAME
             pwd
             ls -l
-            ls -l venv/
+            cd ..
+            pwd
+            ls -l
       - run:
           name: Run Migrations on Heroku
           command: |
