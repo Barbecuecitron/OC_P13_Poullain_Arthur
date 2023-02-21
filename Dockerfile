@@ -54,7 +54,7 @@ USER myuser
 
 
 COPY --chown=myuser:myuser requirements.txt requirements.txt
-COPY --chown=user:myuser data.json data.json
+COPY --chown=myuser:myuser data.json data.json
 
 RUN pip install --user -r requirements.txt
 
