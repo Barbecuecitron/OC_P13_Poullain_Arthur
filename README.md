@@ -1,77 +1,64 @@
-## Résumé
+# OC_P13_Poullain_Arthur
+Python version used : Python 3.7.9
 
-Site web d'Orange County Lettings
+Mise à l'échelle d'une application Django en utilisant une architecture modulaire
 
-## Développement local
+# Installation guide :
+* Install Python3.7.9 : ```$ sudo apt install python3.7.9```
+* Install the pip package if you don't have it : ``` $ sudo apt install python3-pip ```
+* Clone the Repository : ```$ git clone https://github.com/Barbecuecitron/OC_P13_Poullain_Arthur.git ```
 
-### Prérequis
+# How to use ?
+* ```cd /path/to/Project``` navigate to the project dir
+* ```python -m venv venv``` create the virtual env
+* ```venv\Scripts\activate``` activate the virtual env 
 
-- Compte GitHub avec accès en lecture à ce repository
-- Git CLI
-- SQLite3 CLI
-- Interpréteur Python, version 3.6 ou supérieure
+# Create the ENV variables in a .env file
+* Your .env file should contain these variables:
+```
+ENV_DJANGO_SECRET_KEY=XXXX
+HEROKU_APP_NAME=XXXXX
+HEROKU_API_KEY=XXXXX
+DOCKERHUB_LOGIN=XXXXX
+DOCKERHUB_PASSWORD=XXXXX
+DOCKER_REPOSITORY=XXXXX
+SENTRY_DSN=XXXXX
+SENTRY_AUTH_TOKEN=XXXXX
+```
 
-Dans le reste de la documentation sur le développement local, il est supposé que la commande `python` de votre OS shell exécute l'interpréteur Python ci-dessus (à moins qu'un environnement virtuel ne soit activé).
+# Run & Browse the app locally
+* ```cd /path/to/Project``` navigate to the project dir
+* ```venv\Scripts\activate``` activate the virtual env 
+* ``` python manage.py migrate ``` apply migrations on database
+* ```python manage.py loaddata data.json``` load dataset from json fixture
+* ```python manage.py runserver``` run the server locally
+* Visit http://localhost:8000/
 
-### macOS / Linux
+--
+# Execute linting and tests
+* From within the virtual environnment,  you can execute the linting by running ```flake8```
+* From within the virtual environnment, you can execute the tests by running ```pytest```
 
-#### Cloner le repository
+# Adding Docker Support
+Since the .Dockerfile contains every needed informations to build the image, you can deploy the app using the following steps :
 
-- `cd /path/to/put/project/in`
-- `git clone https://github.com/OpenClassrooms-Student-Center/Python-OC-Lettings-FR.git`
+* 1 - Clone the project and setup the local environnment as shown in the previouses steps.
 
-#### Créer l'environnement virtuel
+* 2 - Setup a new CircleCI project with the master /  main branch as the root.
 
-- `cd /path/to/Python-OC-Lettings-FR`
-- `python -m venv venv`
-- `apt-get install python3-venv` (Si l'étape précédente comporte des erreurs avec un paquet non trouvé sur Ubuntu)
-- Activer l'environnement `source venv/bin/activate`
-- Confirmer que la commande `python` exécute l'interpréteur Python dans l'environnement virtuel
-`which python`
-- Confirmer que la version de l'interpréteur Python est la version 3.6 ou supérieure `python --version`
-- Confirmer que la commande `pip` exécute l'exécutable pip dans l'environnement virtuel, `which pip`
-- Pour désactiver l'environnement, `deactivate`
+* 3 - Setup the CircleCI env vars to match the ones you previously created.
 
-#### Exécuter le site
+* 4 - Create a Docker repository from DockerHub - don't forget to add it as a CircleCI env var.```DOCKER_REPOSITORY=your_docker_repo_name```
 
-- `cd /path/to/Python-OC-Lettings-FR`
-- `source venv/bin/activate`
-- `pip install --requirement requirements.txt`
-- `python manage.py runserver`
-- Aller sur `http://localhost:8000` dans un navigateur.
-- Confirmer que le site fonctionne et qu'il est possible de naviguer (vous devriez voir plusieurs profils et locations).
+# Setting up Heroku for deployment
+* 1 - Create a heroku app
 
-#### Linting
+* 2 - Install the Heroku Postgres addon on your Heroku Project.
 
-- `cd /path/to/Python-OC-Lettings-FR`
-- `source venv/bin/activate`
-- `flake8`
+* 3 - Add these env_vars to your CircleCI project : ```HEROKU_APP_NAME=your_heroku_app_name``` & ```HEROKU_API_KEY=your_heroku_api_key```
 
-#### Tests unitaires
+# Adding Sentry monitoring
+You can allow Sentry to monitor your server's behavior by setting the SENTRY_DSN to your env_vars (CircleCI && .env)
 
-- `cd /path/to/Python-OC-Lettings-FR`
-- `source venv/bin/activate`
-- `pytest`
-
-#### Base de données
-
-- `cd /path/to/Python-OC-Lettings-FR`
-- Ouvrir une session shell `sqlite3`
-- Se connecter à la base de données `.open oc-lettings-site.sqlite3`
-- Afficher les tables dans la base de données `.tables`
-- Afficher les colonnes dans le tableau des profils, `pragma table_info(Python-OC-Lettings-FR_profile);`
-- Lancer une requête sur la table des profils, `select user_id, favorite_city from
-  Python-OC-Lettings-FR_profile where favorite_city like 'B%';`
-- `.quit` pour quitter
-
-#### Panel d'administration
-
-- Aller sur `http://localhost:8000/admin`
-- Connectez-vous avec l'utilisateur `admin`, mot de passe `Abc1234!`
-
-### Windows
-
-Utilisation de PowerShell, comme ci-dessus sauf :
-
-- Pour activer l'environnement virtuel, `.\venv\Scripts\Activate.ps1` 
-- Remplacer `which <my-command>` par `(Get-Command <my-command>).Path`
+# Contributors
+* Arthur P
