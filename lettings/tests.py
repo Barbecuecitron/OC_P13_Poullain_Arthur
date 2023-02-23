@@ -1,5 +1,3 @@
-# def test_dummy():
-#     assert 1
 from django.test import TestCase
 from django.urls import reverse
 from .models import Address, Letting
