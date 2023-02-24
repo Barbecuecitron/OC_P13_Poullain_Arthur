@@ -7,6 +7,7 @@ from django.urls import reverse
 
 from .models import Profile
 
+
 # Profile test
 class ProfilesTest(TestCase):
     def setUp(self):
